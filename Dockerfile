@@ -1,6 +1,7 @@
 FROM golang:alpine as builder
 
-RUN go env -w CGO_ENABLED=0
+RUN go env -w CGO_ENABLED=0\
+    GOPROXY=https://goproxy.cn,direct
 
 WORKDIR /build
 
