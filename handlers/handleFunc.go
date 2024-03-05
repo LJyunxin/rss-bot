@@ -9,6 +9,7 @@ import (
 	"github.com/LJ-WorkSpace/feishu-RSS-bot/services"
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
+	"github.com/mmcdole/gofeed"
 )
 
 func AddSubscription(ctx *gin.Context) {
@@ -124,9 +125,26 @@ func UpdateWebhook(ctx *gin.Context) {
 	})
 }
 
-func StartPushSubscription() {
-	err := services.PushSubscription()
+func PushSubscription() {
+	origins, err := models.GetDataSlice()
 	if err != nil {
-		log.Println(err)
+		log.Println("get data slice failed", err)
+		return
+	}
+
+	fp := gofeed.NewParser()
+	for index, data := range origins {
+		err = services.PushFeed(&data, fp)
+		if err != nil {
+			log.Println("push feed failed:", data.Name, err)
+		}
+
+		origins[index].UpdatedAt = time.Now()
+	}
+
+	err = models.UpdatedDataFile(origins)
+	if err != nil {
+		log.Println("updated data file failed:", err)
+		return
 	}
 }

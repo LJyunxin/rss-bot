@@ -7,7 +7,6 @@ import (
 
 	"github.com/LJ-WorkSpace/feishu-RSS-bot/handlers"
 	"github.com/LJ-WorkSpace/feishu-RSS-bot/models/dao"
-	"github.com/LJ-WorkSpace/feishu-RSS-bot/services"
 	"github.com/robfig/cron/v3"
 )
 
@@ -39,7 +38,7 @@ func loggerInit() {
 func main() {
 	loggerInit()
 	c := cron.New()
-	_, err := c.AddFunc("@hourly", handlers.StartPushSubscription)
+	_, err := c.AddFunc("@hourly", handlers.PushSubscription)
 	if err != nil {
 		log.Fatal("cronjob create failed")
 	}
@@ -49,11 +48,6 @@ func main() {
 	err = engine.Run(":8080")
 	if err != nil {
 		log.Fatal("gin run failed:", err)
-	}
-
-	err = services.PushSubscription()
-	if err != nil {
-		log.Println("push subscription failed:", err)
 	}
 
 	log.Println("system initialized")
