@@ -15,7 +15,7 @@ func PushFeed(data *dao.Subscription, fp *gofeed.Parser) error {
 	feed, err := fp.ParseURL(data.Url)
 	if err != nil && time.Since(data.UpdatedAt) > 24*time.Hour {
 		pushErr := PushFailToLark(data.Name, err)
-		return errors.New(fmt.Sprintln("push fail message to lark failed:", pushErr))
+		return pushErr
 	}
 	if err != nil {
 		return err

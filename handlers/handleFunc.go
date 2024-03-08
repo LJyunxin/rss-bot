@@ -137,6 +137,7 @@ func PushSubscription() {
 		err = services.PushFeed(&data, fp)
 		if err != nil {
 			log.Println("push feed failed:", data.Name, err)
+			continue
 		}
 
 		origins[index].UpdatedAt = time.Now()
