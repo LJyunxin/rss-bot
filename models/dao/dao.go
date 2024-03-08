@@ -8,7 +8,7 @@ import (
 
 const DataFilePath = "rss.json"
 const LogFilePath = "log.txt"
-const Template = `{
+const FeedTemplate = `{
 	"msg_type": "post",
 	"content": {
 		"post": {
@@ -20,6 +20,29 @@ const Template = `{
 							"tag": "a",
 							"text": "%s",
 							"href": "%s"
+						}
+					]
+				]
+			}
+		}
+	}
+}`
+
+const MessageTemplate = `{
+	"msg_type": "post",
+	"content": {
+		"post": {
+			"zh_cn": {
+				"title": "%s",
+				"content": [
+					[
+						{
+							"tag": "text",
+							"text": "%s:\n"
+						},
+						{
+							"tag": "text",
+							"text": "%s"
 						}
 					]
 				]

@@ -36,8 +36,8 @@ func PushFeed(data *dao.Subscription, fp *gofeed.Parser) error {
 }
 
 func PushFailToLark(name string, msg error) error {
-
-	temp := fmt.Sprintf(dao.Template, name, "pull feed failed", msg)
+	msgStr := strings.Replace(msg.Error(), `"`, `\"`, -1)
+	temp := fmt.Sprintf(dao.MessageTemplate, name, "fetch feed failed", msgStr)
 
 	resp, err := http.Post(dao.Webhook, "application/json", strings.NewReader(temp))
 	if err != nil {
@@ -53,7 +53,7 @@ func PushFailToLark(name string, msg error) error {
 }
 
 func PushToLark(name string, item *gofeed.Item) error {
-	temp := fmt.Sprintf(dao.Template, name, item.Title, item.Link)
+	temp := fmt.Sprintf(dao.FeedTemplate, name, item.Title, item.Link)
 
 	resp, err := http.Post(dao.Webhook, "application/json", strings.NewReader(temp))
 	if err != nil {
