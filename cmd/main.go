@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"os"
+	"time"
 
 	"github.com/LJ-WorkSpace/feishu-RSS-bot/handlers"
 	"github.com/LJ-WorkSpace/feishu-RSS-bot/models/dao"
@@ -14,8 +15,8 @@ func init() {
 	dao.FileMux.Lock()
 	defer dao.FileMux.Unlock()
 
-	if _, err := os.Stat(dao.FilePath); os.IsNotExist(err) {
-		dataFile, err := os.Create(dao.FilePath)
+	if _, err := os.Stat(dao.DataFilePath); os.IsNotExist(err) {
+		dataFile, err := os.Create(dao.DataFilePath)
 		if err != nil {
 			log.Panic("create data file failed ")
 		}
@@ -25,7 +26,18 @@ func init() {
 
 }
 
+func loggerInit() {
+	logFile, err := os.OpenFile(dao.LogFilePath, os.O_CREATE|os.O_APPEND|os.O_RDWR, os.ModePerm)
+	if err != nil {
+		log.Panicln("logger init fail:", err)
+	}
+	log.SetOutput(logFile)
+	log.SetFlags(log.Ldate | log.Ltime)
+	log.Println("=======================", time.Now(), "===========================")
+}
+
 func main() {
+	loggerInit()
 	c := cron.New()
 	_, err := c.AddFunc("@hourly", handlers.StartPushSubscription)
 	if err != nil {

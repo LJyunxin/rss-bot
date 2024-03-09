@@ -13,7 +13,7 @@ func GetDataSlice() ([]dao.Subscription, error) {
 	dao.FileMux.RLock()
 	defer dao.FileMux.RUnlock()
 
-	data, err := os.ReadFile(dao.FilePath)
+	data, err := os.ReadFile(dao.DataFilePath)
 	if err != nil {
 		return nil, err
 	}
@@ -34,7 +34,7 @@ func UpdatedDataFile(data []dao.Subscription) error {
 		return err
 	}
 
-	if err = os.WriteFile(dao.FilePath, jsonData, 0644); err != nil {
+	if err = os.WriteFile(dao.DataFilePath, jsonData, 0644); err != nil {
 		return err
 	}
 

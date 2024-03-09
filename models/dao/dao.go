@@ -6,7 +6,8 @@ import (
 	"time"
 )
 
-const FilePath = "rss.json"
+const DataFilePath = "rss.json"
+const LogFilePath = "log.txt"
 const Template = `{
 	"msg_type": "post",
 	"content": {
