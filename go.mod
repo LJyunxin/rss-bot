@@ -1,4 +1,4 @@
-module github.com/LJ-WorkSpace/feishu-RSS-bot
+module github.com/ljyunxin/rss-bot
 
 go 1.21.1
 

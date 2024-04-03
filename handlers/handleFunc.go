@@ -4,11 +4,11 @@ import (
 	"log"
 	"time"
 
-	"github.com/LJ-WorkSpace/feishu-RSS-bot/models"
-	"github.com/LJ-WorkSpace/feishu-RSS-bot/models/dao"
-	"github.com/LJ-WorkSpace/feishu-RSS-bot/services"
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
+	"github.com/ljyunxin/rss-bot/models"
+	"github.com/ljyunxin/rss-bot/models/dao"
+	"github.com/ljyunxin/rss-bot/services"
 	"github.com/mmcdole/gofeed"
 )
 

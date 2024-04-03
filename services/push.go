@@ -7,7 +7,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/LJ-WorkSpace/feishu-RSS-bot/models/dao"
+	"github.com/ljyunxin/rss-bot/models/dao"
 	"github.com/mmcdole/gofeed"
 )
 

@@ -5,8 +5,8 @@ import (
 	"os"
 	"time"
 
-	"github.com/LJ-WorkSpace/feishu-RSS-bot/handlers"
-	"github.com/LJ-WorkSpace/feishu-RSS-bot/models/dao"
+	"github.com/ljyunxin/rss-bot/handlers"
+	"github.com/ljyunxin/rss-bot/models/dao"
 	"github.com/robfig/cron/v3"
 )
 
